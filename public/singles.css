@@ -1,0 +1,252 @@
+:root {
+  --primary: #ffffff;
+  --secondary: #1a1a1a;
+  --accent: #6a95f1;
+  --text: #e0e0e0;
+  --bg: #121212;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Botón de volver */
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--secondary);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.back-button i {
+  font-size: 1.5rem;
+}
+
+/* Contenido principal del single */
+.single-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4rem;
+}
+
+.single-cover {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  position: relative;
+}
+
+.single-cover img {
+  width: 100%;
+  border-radius: 8px;
+  transition: all 0.5s ease;
+}
+
+.single-cover:hover img {
+  transform: scale(1.02);
+}
+
+.single-info {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.single-title {
+  color: var(--primary);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.single-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50%;
+  height: 3px;
+  background-color: var(--accent);
+}
+
+.single-artist {
+  color: var(--text);
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.release-date {
+  color: var(--accent);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.single-description {
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.single-platforms {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.platform-btn {
+  background-color: var(--secondary);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  height: 85px;
+  width: 85px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.platform-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(255, 255, 255, 0.2);
+}
+
+.platform-btn i {
+  font-size: 2.5rem;
+}
+
+.platform-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.spotify { color: #1DB954;}
+.apple { color: #FC3C44;}
+.soundcloud { color: #FF5500;}
+.youtube { color: #FF0000;}
+.instagram { color: rgb(255, 117, 151);}
+.deezer { color: #00c7f2;}
+.tidal { color: #00fff8;}
+
+/* Footer */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  color: var(--primary);
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.footer {
+  background-color: var(--secondary);
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: auto;
+}
+
+.footer p {
+  margin: 0;
+  color: var(--text);
+}
+
+/* Animación de disco */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .single-container {
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 4rem;
+  }
+
+  .single-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .single-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+  }
+
+  .single-platforms {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .single-title {
+    font-size: 2rem;
+  }
+  
+  .single-artist {
+    font-size: 1.5rem;
+  }
+  
+  .platform-btn {
+    width: 85px;
+    height: 85px;
+  }
+}
