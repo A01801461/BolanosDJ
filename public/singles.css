@@ -171,7 +171,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .social-link {
@@ -194,10 +194,13 @@ body {
 }
 
 .footer {
+  display: flex;
+  flex-direction: column;
   background-color: var(--secondary);
   text-align: center;
-  padding: 1.5rem;
-  margin-top: auto;
+  margin-top: 2rem;
+  gap: 2rem;
+  padding: 3.5rem
 }
 
 .footer p {
@@ -213,6 +216,11 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+
+  .footer {
+    margin-top: 6rem;
+  }
+
   .single-container {
     flex-direction: column;
     gap: 2rem;
@@ -249,4 +257,9 @@ body {
     width: 85px;
     height: 85px;
   }
+
+  .footer {
+    margin-top: 6rem;
+  }
+
 }

@@ -91,6 +91,36 @@ body {
   background-color: var(--accent);
 }
 
+.contenedor-titulo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2%;
+}
+
+/*foto circular bolanos*/
+.foto-perfil {
+  width: 15vw;
+  height: 15vw; 
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 20px auto;
+  filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.5));
+  transition: ease all 0.3s;
+}
+
+.frase{
+  font-family: monospace, "lucida Console", sans-serif;
+}
+
+.foto-perfil:hover {
+  scale: 1.02;
+  transform: translateY(-8px);
+  box-shadow: 0 8px 15px rgba(255, 255, 255, 0.35);
+}
+
 /* Botones de plataformas */
 .platforms {
   display: flex;
@@ -222,7 +252,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .social-link {
@@ -245,10 +275,13 @@ body {
 }
 
 .footer {
+  display: flex;
+  flex-direction: column;
   background-color: var(--secondary);
   text-align: center;
-  padding: 1.5rem;
-  margin-top: auto;
+  margin-top: 2rem;
+  gap: 2rem;
+  padding: 3.5rem
 }
 
 .footer p {
@@ -299,6 +332,11 @@ body {
 
   .espacio-inicio{
     height: 10rem;
+  }
+
+  .foto-perfil {
+      width: 50vw;
+      height: 50vw;
   }
 
 
