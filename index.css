@@ -307,7 +307,7 @@ body {
   
   .platforms {
     align-items: center;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.3rem;
   }
   
@@ -331,7 +331,6 @@ body {
 
   .logo {
     height: 120px;
-    margin-left: 1rem;
   }
 
   .barra-superior {
@@ -339,6 +338,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 5%;
     justify-content: space-around;
+    padding-left: 1rem;
   }
 
   .espacio-inicio{
@@ -350,4 +350,16 @@ body {
       height: 50vw;
   }
 
+}
+
+@media (max-width: 768px) {
+
+  .barra-superior {
+    padding: 0rem 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5%;
+    justify-content: space-around;
+  }
+
+  .singles-grid {grid-template-columns: 1fr;}
 }
