@@ -1,10 +1,10 @@
 /* Estilos generales */
 :root {
   --primary: #ffffff;
-  --secondary: #1a1a1a;
+  --secondary: #0f0f0f;
   --accent: #6a95f1;
   --text: #e0e0e0;
-  --bg: #121212;
+  --bg: #0a0a0a;
 }
 
 body {
@@ -20,8 +20,9 @@ body {
 
 /* Barra superior */
 .barra-superior {
-  background-color: var(--secondary);
-  padding: 0rem 2rem;
+  background-color: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(30px);
+  padding: 0 4rem;
   display: flex;
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
@@ -92,11 +93,11 @@ body {
 }
 
 .contenedor-titulo{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2%;
 }
 
 /*foto circular bolanos*/
@@ -108,11 +109,13 @@ body {
   display: block;
   margin: 20px auto;
   filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.5));
-  transition: ease all 0.3s;
+  transition: ease all 0.5s;
 }
 
 .frase{
   font-family: monospace, "lucida Console", sans-serif;
+  text-align: center;
+  align-items: center;
 }
 
 .foto-perfil:hover {
@@ -143,10 +146,18 @@ body {
   text-decoration: none;
   height: 60px;
   width: 60px;
+  transition: all 0.3s ease;
 }
 
 .platform-btn i {
   font-size: 2rem; /* Aumenta el tamaño del icono (1rem = 16px) */
+}
+
+.platform-btn.instagram i {
+  background: linear-gradient(45deg, #fff262, #ff0090);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Para compatibilidad con navegadores modernos */
 }
 
 .platform-btn:hover {
@@ -158,7 +169,6 @@ body {
 .apple { color: #FC3C44;}
 .soundcloud { color: #FF5500;}
 .youtube { color: #FF0000;}
-.instagram { color: rgb(255, 117, 151);}
 
 /* Sección de singles */
 .singles-grid {
@@ -321,10 +331,11 @@ body {
 
   .logo {
     height: 120px;
+    margin-left: 1rem;
   }
 
   .barra-superior {
-    padding: 0rem 0rem;
+    padding: 0rem 1rem;
     grid-template-columns: repeat(2, 1fr);
     gap: 5%;
     justify-content: space-around;
@@ -338,6 +349,5 @@ body {
       width: 50vw;
       height: 50vw;
   }
-
 
 }

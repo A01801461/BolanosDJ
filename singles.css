@@ -1,9 +1,9 @@
 :root {
   --primary: #ffffff;
-  --secondary: #1a1a1a;
+  --secondary: #0f0f0f;
   --accent: #6a95f1;
   --text: #e0e0e0;
-  --bg: #121212;
+  --bg: #0a0a0a;
 }
 
 body {
@@ -117,6 +117,7 @@ body {
 .single-description {
   margin-bottom: 2rem;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .single-platforms {
