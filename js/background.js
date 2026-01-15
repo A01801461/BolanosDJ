@@ -1,0 +1,316 @@
+import * as THREE from 'three';
+
+// --- Configuration ---
+const PARTICLE_COUNT = 1500;
+
+// "Blanket" Dimensions
+const DISC_RADIUS = 70.0; // The total spread
+const RING_RADIUS = 10.0; // Where the "Peak" of the donut is
+const RING_HEIGHT = 9.0;  // How high the peak is relative to the deep parts
+const RING_WIDTH = 4.0;   // How fleshy the donut ring is
+
+// Palette: Gold Track & Blue Track
+const COLOR_GOLD1 = new THREE.Color("hsl(40, 80%, 30%)");  // Deep Gold
+const COLOR_GOLD2 = new THREE.Color("hsl(45, 90%, 60%)");  // Bright Gold
+const COLOR_BLUE1 = new THREE.Color("hsl(210, 50%, 40%)"); // Cool Blue
+const COLOR_BLUE2 = new THREE.Color("hsl(190, 70%, 70%)"); // Pale Cyan/Ice
+const COLOR_WHITE = new THREE.Color("hsl(210, 20%, 95%)"); // White Sparkle
+
+let camera, scene, renderer;
+let geometry, material, mesh;
+let positions, originalPositions, sizes, life;
+let mouse = new THREE.Vector2(-9999, -9999);
+let clock = new THREE.Clock();
+
+// Track independent positions
+let torusPosition = new THREE.Vector3(0, 0, 0);
+let blanketPosition = new THREE.Vector3(0, 0, 0);
+
+const renderVertexShader = `
+    attribute float size;
+    attribute float velocityRef; 
+    
+    varying float vVelocity;
+    varying float vDepth; // Normalized depth 0..1
+    
+    uniform float uPixelRatio;
+    uniform float uSizeScale;
+    uniform float uTime;
+
+    void main() {
+        vVelocity = velocityRef;
+        
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        gl_Position = projectionMatrix * mvPosition;
+
+        // --- SIZING LOGIC ---
+        // User wants 10x difference. 
+        // "Elevated" (high Z / close to camera) = HUGE
+        // "Deep" (low Z / far) = TINY
+        
+        // Calculate local Z height relative to the mesh plane generally
+        // But better to use View Space Z (-mvPosition.z)
+        
+        // Let's create a "Height Factor" based on position.z (Local space is easier for the shape logic)
+        // In our geometry, High Z = Peak. Low Z = Deep.
+        
+        float heightFactor = smoothstep(-5.0, 8.0, position.z); // Map depth range to 0..1
+        
+        vDepth = heightFactor;
+
+        // Base size * 
+        // Perspective Scale (Standard) * 
+        // Dramatic Height Multiplier (User Request)
+        
+        float dramaticSize = mix(0.5, 6.0, heightFactor); // 0.5x at bottom, 6.0x at top => 12x ratio
+        
+        gl_PointSize = size * uSizeScale * uPixelRatio * dramaticSize * ( 20.0 / -mvPosition.z );
+        
+        // Clamp
+        gl_PointSize = clamp(gl_PointSize, 0.0, 150.0);
+    }
+`;
+
+const renderFragmentShader = `
+    varying float vVelocity; 
+    varying float vDepth;
+    
+    uniform vec3 uColorGold1;
+    uniform vec3 uColorGold2;
+    uniform vec3 uColorBlue1;
+    uniform vec3 uColorBlue2;
+    uniform vec3 uColorWhite;
+
+    void main() {
+        vec2 coord = gl_PointCoord - vec2(0.5);
+        float dist = length(coord);
+        if (dist > 0.5) discard;
+        
+        // Softest edges for "Light" feel
+        float alpha = smoothstep(0.5, 0.1, dist);
+        
+        // --- Color Track Mixing ---
+        // We use vVelocity (per-particle random) to decide the "tint"
+        // Particles < 0.5 lean Gold, > 0.5 lean Blue
+        
+        vec3 goldTrack = mix(uColorGold1, uColorGold2, vDepth);
+        vec3 blueTrack = mix(uColorBlue1, uColorBlue2, vDepth);
+        
+        // Selection logic: Mostly gold, some blue
+        float select = step(0.65, vVelocity); // ~35% blue
+        vec3 baseCol = mix(goldTrack, blueTrack, select);
+        
+        // Add white highlights at the peaks
+        vec3 finalCol = mix(baseCol, uColorWhite, smoothstep(0.8, 1.0, vDepth));
+        
+        // Fade out deep particles 
+        float fadeAlpha = mix(0.2, 0.8, vDepth);
+        
+        gl_FragColor = vec4( finalCol, alpha * fadeAlpha ); 
+    }
+`;
+
+init();
+animate();
+
+function init() {
+    const container = document.getElementById('canvas-container');
+    if (!container) {
+        console.error("Canvas container not found!");
+        return;
+    }
+
+    // Camera - Top Down / Angled view
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.set(0, 0, 40);
+    // We look straight at it, but the Mesh itself will tilt.
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000); // Black background
+    scene.fog = new THREE.FogExp2(0x000000, 0.01);
+
+    // Initialization
+    positions = new Float32Array(PARTICLE_COUNT * 3);
+    originalPositions = new Float32Array(PARTICLE_COUNT * 3);
+    sizes = new Float32Array(PARTICLE_COUNT);
+    life = new Float32Array(PARTICLE_COUNT);
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+
+        // Distribution: Uniform Disc
+        // r = sqrt(random()) to distribute evenly by area
+        const r = Math.sqrt(Math.random()) * DISC_RADIUS;
+        const theta = Math.random() * Math.PI * 2;
+
+        let x = r * Math.cos(theta);
+        let y = r * Math.sin(theta);
+
+        // --- THE BLANKET FORMULA ---
+        // Z depends on radius 'r'
+        // We want a "Gaussian Bump" at RING_RADIUS
+
+        const distFromRing = Math.abs(r - RING_RADIUS);
+        // Gaussian: exp( - (x^2) / (2 * sigma^2) )
+        const height = Math.exp(- (distFromRing * distFromRing) / (2.0 * RING_WIDTH * RING_WIDTH)) * RING_HEIGHT;
+
+        // Center hole logic:
+        // We want the center to be DEEP.
+
+        let z = height - 5.0; // Shift down so peak is at ~ +3, bottom is at -5
+
+        // Store
+        originalPositions[i * 3] = x;
+        originalPositions[i * 3 + 1] = y;
+        originalPositions[i * 3 + 2] = z;
+
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = z;
+
+        sizes[i] = Math.random() * 0.5 + 0.5;
+        life[i] = Math.random();
+    }
+
+    geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute('velocityRef', new THREE.BufferAttribute(life, 1));
+
+    material = new THREE.ShaderMaterial({
+        uniforms: {
+            uPixelRatio: { value: window.devicePixelRatio },
+            uSizeScale: { value: 5.0 },
+            uTime: { value: 0.0 },
+            uColorGold1: { value: COLOR_GOLD1 },
+            uColorGold2: { value: COLOR_GOLD2 },
+            uColorBlue1: { value: COLOR_BLUE1 },
+            uColorBlue2: { value: COLOR_BLUE2 },
+            uColorWhite: { value: COLOR_WHITE }
+        },
+        vertexShader: renderVertexShader,
+        fragmentShader: renderFragmentShader,
+        transparent: true,
+        depthTest: false,
+        blending: THREE.AdditiveBlending
+    });
+
+    mesh = new THREE.Points(geometry, material);
+    scene.add(mesh);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false }); // alpha false since we want black
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+
+    window.addEventListener('resize', onWindowResize);
+    document.addEventListener('mousemove', onDocumentMouseMove);
+}
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    material.uniforms.uPixelRatio.value = window.devicePixelRatio;
+}
+
+function onDocumentMouseMove(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    render();
+}
+
+
+function render() {
+    const time = clock.getElapsedTime();
+    material.uniforms.uTime.value = time;
+
+    // --- 1. INTERACTION LOGIC ---
+
+    // Target: Mouse World Pos
+    const mouseV = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+    mouseV.unproject(camera);
+    const moveDir = mouseV.sub(camera.position).normalize();
+    const moveDistance = -camera.position.z / moveDir.z;
+    const targetPos = camera.position.clone().add(moveDir.multiplyScalar(moveDistance));
+
+    if (mouse.x < -1 || mouse.y < -1) {
+        targetPos.set(0, 0, 0);
+    }
+
+    // A. Torus Move (Fast - "Underneath")
+    const torusLerp = 0.10;
+    torusPosition.x += (targetPos.x - torusPosition.x) * torusLerp;
+    torusPosition.y += (targetPos.y - torusPosition.y) * torusLerp;
+
+    // B. Blanket/Mesh Move (Slow - "Dragging")
+    const blanketLerp = 0.001;
+    mesh.position.x += (targetPos.x - mesh.position.x) * blanketLerp;
+    mesh.position.y += (targetPos.y - mesh.position.y) * blanketLerp;
+    // Capture for math
+    blanketPosition.copy(mesh.position);
+
+    // C. Tilt (Clamped & Subtle)
+    // Calculate desired tilt based on distance
+    let tiltX = (targetPos.y - mesh.position.y) * 0.15;
+    let tiltY = -(targetPos.x - mesh.position.x) * 0.15;
+
+    // Hard Clamp to avoid spinning
+    const MAX_TILT = 0.15; // ~ how many degrees ?
+    tiltX = Math.max(-MAX_TILT, Math.min(MAX_TILT, tiltX));
+    tiltY = Math.max(-MAX_TILT, Math.min(MAX_TILT, tiltY));
+
+    mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, tiltX, 0.1);
+    mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, tiltY, 0.1);
+
+    // --- 2. DYNAMICS & GEOMETRY UPDATE ---
+
+    // Calculate Offset: Where is the Torus relative to the Blanket center?
+    // Since we are inside the Mesh's local space, we need (TorusPos - BlanketPos).
+    // But wait, if Mesh is at BlanketPos, then Local(0,0) is BlanketPos.
+    // So relative pos is just (torusPosition - mesh.position).
+
+    const relX = torusPosition.x - mesh.position.x;
+    const relY = torusPosition.y - mesh.position.y;
+
+    const positions = geometry.attributes.position.array;
+
+    // Constants for ripple/chaos
+    // const waveAmp = 1.0; 
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const i3 = i * 3;
+        let ox = originalPositions[i3];
+        let oy = originalPositions[i3 + 1];
+        // oz is not used as base anymore, we calculate fresh Z
+
+        // 1. Distance from dynamic Torus Center
+        // We use original X/Y (plane coordinates) minus the relative offset
+        const dx = ox - relX;
+        const dy = oy - relY;
+        const distFromTorusCenter = Math.sqrt(dx * dx + dy * dy);
+
+        // 2. Torus/Gaussian Function
+        // We want the bump at RING_RADIUS from the CENTER OF THE TORUS (relX, relY)
+        const distFromRing = Math.abs(distFromTorusCenter - RING_RADIUS);
+        const height = Math.exp(- (distFromRing * distFromRing) / (2.0 * RING_WIDTH * RING_WIDTH)) * RING_HEIGHT;
+
+        let baseZ = height - 5.0;
+
+        // 3. Chaos/Ripples (applied on top)
+        // Use absolute world-ish coords for noise coherence? Or local?
+        // Local is fine.
+        const breath = Math.sin(time * 0.5 + distFromTorusCenter * 0.2) * 1.5;
+        const ripple = Math.cos(time * 2.0 - distFromTorusCenter * 0.5) * 0.5;
+        const noise = Math.sin(ox * 0.5 + time) * Math.cos(oy * 0.5 + time) * 1.0;
+
+        positions[i3 + 2] = baseZ + breath + ripple + noise;
+    }
+
+    geometry.attributes.position.needsUpdate = true;
+
+    renderer.render(scene, camera);
+}

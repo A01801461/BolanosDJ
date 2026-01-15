@@ -10,9 +10,21 @@
     <link rel="shortcut icon" href="images/logoBolanos.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script type="importmap">
+      {
+          "imports": {
+              "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+              "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+          }
+      }
+    </script>
+    <script type="module" src="js/background.js"></script>
   </head>
-
+  
   <body>
+    <div id="canvas-container"></div>
+
 <!-- Barra fija superior -->
     <div class="barra-superior">
       <a href = "index.html">
