@@ -1,56 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Your Arms - ft. Kuths</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="singles.css">
-    </head>
-    <body>
-        <!-- Botón para volver a la página principal -->
-        <a href="index.html" class="back-button">
-            <i class="fas fa-arrow-left"></i>
-        </a>
 
-        <!-- Contenido principal del single -->
-        <div class="single-container">
-            <!-- Portada del single -->
-            <div class="single-cover">
-                <img src="images/your_arms.jpg" alt="Portada del single">
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Arms - ft. Kuths</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="singles.css">
+    <script type="importmap">
+      {
+          "imports": {
+              "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+              "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+          }
+      }
+    </script>
+    <script type="module" src="js/background.js"></script>
+</head>
 
-            <!-- Información y botones de plataformas -->
-            <div class="single-info">
-                <h1 class="single-title">Your Arms</h1>
-                <h2 class="single-artist">Bolaños ft. Kuths</h2>
-                <div class="release-date">Release Date: 18 March 2024</div>
-                <p class="single-description">
-                    A collaboration with fellow Mexican DJ and close friend Kuths, this track blends friendship and creativity into a powerful sonic journey.
-                </p>
-                <div class="release-date">Listen to it: </div>
-                <div class="single-platforms">
-                    <a href="https://open.spotify.com/track/4wQUdARETnKV30nwyHcedd" class="platform-btn spotify" target="_blank">
-                        <i class="fab fa-spotify"></i>
-                    </a>
-                    <a href="https://music.apple.com/mx/album/your-arms-carlo-riviera-dj-flash-mx-version/1732570108?i=1732570113" class="platform-btn apple" target="_blank">
-                        <i class="fab fa-apple"></i>
-                    </a>
-                </div>
-            </div>
+<body>
+    <div id="canvas-container"></div>
+    <!-- Botón para volver a la página principal -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Contenido principal del single -->
+    <div class="single-container">
+        <!-- Portada del single -->
+        <div class="single-cover">
+            <img src="images/your_arms.jpg" alt="Portada del single">
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p style="font-size: 1.2rem;">© 2025 Bolaños</p>
-            <div class="social-links">
-                <a href="https://open.spotify.com/artist/0OT6XhLkPQ2GwlfEiTrIxl" class="social-link" target="_blank"><i class="fab fa-spotify"></i></a>
-                <a href="https://www.instagram.com/andre_bol_?igsh=YWx6OThoZHoxbno%3D" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://soundcloud.com/user-755738422-320803712/tracks" class="social-link" target="_blank"><i class="fab fa-soundcloud"></i></a>
-                <a href="https://www.youtube.com/@bola%C3%B1os04" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://music.apple.com/mx/artist/bola%C3%B1os/1711481716" class="social-link" target="_blank"><i class="fab fa-apple"></i></a>
+        <!-- Información y botones de plataformas -->
+        <div class="single-info">
+            <h1 class="single-title">Your Arms</h1>
+            <h2 class="single-artist">Bolaños ft. Kuths</h2>
+            <div class="release-date">Release Date: 18 March 2024</div>
+            <p class="single-description">
+                A collaboration with fellow Mexican DJ and close friend Kuths, this track blends friendship and
+                creativity into a powerful sonic journey.
+            </p>
+            <div class="release-date">Listen to it: </div>
+            <div class="single-platforms">
+                <a href="https://open.spotify.com/track/4wQUdARETnKV30nwyHcedd" class="platform-btn spotify"
+                    target="_blank">
+                    <i class="fab fa-spotify"></i>
+                </a>
+                <a href="https://music.apple.com/mx/album/your-arms-carlo-riviera-dj-flash-mx-version/1732570108?i=1732570113"
+                    class="platform-btn apple" target="_blank">
+                    <i class="fab fa-apple"></i>
+                </a>
             </div>
         </div>
-    </body>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p style="font-size: 1.2rem;">© 2025 Bolaños</p>
+        <div class="social-links">
+            <a href="https://open.spotify.com/artist/0OT6XhLkPQ2GwlfEiTrIxl" class="social-link" target="_blank"><i
+                    class="fab fa-spotify"></i></a>
+            <a href="https://www.instagram.com/andre_bol_?igsh=YWx6OThoZHoxbno%3D" class="social-link"
+                target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://soundcloud.com/user-755738422-320803712/tracks" class="social-link" target="_blank"><i
+                    class="fab fa-soundcloud"></i></a>
+            <a href="https://www.youtube.com/@bola%C3%B1os04" class="social-link" target="_blank"><i
+                    class="fab fa-youtube"></i></a>
+            <a href="https://music.apple.com/mx/artist/bola%C3%B1os/1711481716" class="social-link" target="_blank"><i
+                    class="fab fa-apple"></i></a>
+        </div>
+    </div>
+</body>
+
 </html>

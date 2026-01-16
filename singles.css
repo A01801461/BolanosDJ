@@ -18,6 +18,17 @@ body {
 }
 
 /* Botón de volver */
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  /* Let clicks pass through */
+}
+
 .back-button {
   position: fixed;
   top: 20px;
@@ -159,13 +170,33 @@ body {
   color: var(--text);
 }
 
-.spotify { color: #1DB954;}
-.apple { color: #FC3C44;}
-.soundcloud { color: #FF5500;}
-.youtube { color: #FF0000;}
-.instagram { color: rgb(255, 117, 151);}
-.deezer { color: #00c7f2;}
-.tidal { color: #00fff8;}
+.spotify {
+  color: #1DB954;
+}
+
+.apple {
+  color: #FC3C44;
+}
+
+.soundcloud {
+  color: #FF5500;
+}
+
+.youtube {
+  color: #FF0000;
+}
+
+.instagram {
+  color: rgb(255, 117, 151);
+}
+
+.deezer {
+  color: #00c7f2;
+}
+
+.tidal {
+  color: #00fff8;
+}
 
 /* Footer */
 .social-links {
@@ -211,8 +242,13 @@ body {
 
 /* Animación de disco */
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive */
@@ -249,11 +285,11 @@ body {
   .single-title {
     font-size: 2rem;
   }
-  
+
   .single-artist {
     font-size: 1.5rem;
   }
-  
+
   .platform-btn {
     width: 85px;
     height: 85px;
