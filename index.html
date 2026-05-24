@@ -2,16 +2,17 @@
 <html lang="en">
 
 <!-- Head pagina Bolaños -->
-  <head>
-    <title>Bolaños | DJ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="images/logoBolanos.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <script type="importmap">
+
+<head>
+  <title>Bolaños | DJ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="index.css">
+  <link rel="shortcut icon" href="images/logoBolanos.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <script type="importmap">
       {
           "imports": {
               "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
@@ -19,127 +20,147 @@
           }
       }
     </script>
-    <script type="module" src="js/background.js"></script>
-  </head>
-  
-  <body>
-    <div id="canvas-container"></div>
+  <script type="module" src="js/background.js"></script>
+</head>
 
-<!-- Barra fija superior -->
-    <div class="barra-superior">
-      <a href = "index.html">
-        <img class="logo" src="images/logoBolanos.png" alt="Logo Bolaños">
-      </a>
-      <img src="images/BolanosLogoLetras.png" class="logo-letras">
+<body>
+  <div id="canvas-container"></div>
+
+  <!-- Barra fija superior -->
+  <div class="barra-superior">
+    <a href="index.html">
+      <img class="logo" src="images/logoBolanos.png" alt="Logo Bolaños">
+    </a>
+    <img src="images/BolanosLogoLetras.png" class="logo-letras">
+  </div>
+
+  <div class="espacio-inicio"></div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <!-- Landing -->
+    <div class="contenedor-titulo">
+      <img class="foto-perfil" src="images/bolanos.webp" alt="Foto de Isaac Abud">
+      <h2 class="frase">- All sense vibration.</h2>
     </div>
 
-    <div class="espacio-inicio"></div>
+    <div style="height: 5rem;"></div>
 
-    <!-- Contenido principal -->
-    <div class="main-content">
-      <!-- Landing -->
-      <div class="contenedor-titulo">
-          <img class="foto-perfil" src="images/bolanos.webp" alt="Foto de Isaac Abud">
-          <h2 class="frase">- All sense vibration.</h2>
+    <!-- Botones de plataformas -->
+    <div class="section">
+      <div class="platforms">
+        <a href="https://open.spotify.com/artist/0OT6XhLkPQ2GwlfEiTrIxl" class="platform-btn spotify" target="_blank">
+          <i class="fab fa-spotify"></i>
+        </a>
+        <a href="https://music.apple.com/mx/artist/bola%C3%B1os/1711481716" class="platform-btn apple" target="_blank">
+          <i class="fab fa-apple"></i>
+        </a>
+        <a href="https://soundcloud.com/user-755738422-320803712/tracks" class="platform-btn soundcloud"
+          target="_blank">
+          <i class="fab fa-soundcloud"></i>
+        </a>
+        <a href="https://www.youtube.com/@bola%C3%B1os04" class="platform-btn youtube" target="_blank">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/andre_bol_?igsh=YWx6OThoZHoxbno%3D" class="platform-btn instagram"
+          target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
       </div>
+    </div>
 
-      <div style="height: 5rem;"></div>
-
-      <!-- Botones de plataformas -->
-      <div class="section">
-        <div class="platforms">
-          <a href="https://open.spotify.com/artist/0OT6XhLkPQ2GwlfEiTrIxl" class="platform-btn spotify" target="_blank">
-            <i class="fab fa-spotify"></i>
-          </a>
-          <a href="https://music.apple.com/mx/artist/bola%C3%B1os/1711481716" class="platform-btn apple" target="_blank">
-            <i class="fab fa-apple"></i>
-          </a>
-          <a href="https://soundcloud.com/user-755738422-320803712/tracks" class="platform-btn soundcloud" target="_blank">
-            <i class="fab fa-soundcloud"></i>
-          </a>
-          <a href="https://www.youtube.com/@bola%C3%B1os04" class="platform-btn youtube" target="_blank">
-            <i class="fab fa-youtube"></i>
-          </a>
-          <a href="https://www.instagram.com/andre_bol_?igsh=YWx6OThoZHoxbno%3D" class="platform-btn instagram" target="_blank">
-            <i class="fab fa-instagram"></i>
-          </a>
+    <!-- Sección Latest -->
+    <div class="section">
+      <h2 class="section-title">Latest Set</h2>
+      <div class="latest-video">
+        <div class="video-container">
+          <!-- Reemplaza el ID del video con el de YouTube -->
+          <iframe src="https://www.youtube.com/embed/97BHAXyTmow?si=6rNvfH1S-1vVKvhS" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
         </div>
       </div>
+    </div>
 
-      <!-- Sección Latest -->
-      <div class="section">
-        <h2 class="section-title">Latest Set</h2>
-        <div class="latest-video">
-          <div class="video-container">
-            <!-- Reemplaza el ID del video con el de YouTube -->
-            <iframe src="https://www.youtube.com/embed/97BHAXyTmow?si=6rNvfH1S-1vVKvhS"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen></iframe>
+    <!-- Sección Singles (3D Gallery) -->
+    <link rel="stylesheet" href="css/gallery-3d.css">
+    <div class="section" style="padding: 0; max-width: none;">
+      <!-- Track for scroll length -->
+      <div class="gallery-scroll-track">
+        <!-- Sticky container for 3D View -->
+        <div class="gallery-sticky-view">
+          <div id="gallery-3d-root"></div>
+
+          <!-- Overlay UI -->
+          <div class="gallery-overlay-ui">
+            <!-- Slide 0 -->
+            <div id="slide-info-0" class="gallery-slide-info active">
+              <span class="gallery-slide-number">01 / Single</span>
+              <h3 class="gallery-slide-title">OO1 - Cold</h3>
+              <p class="gallery-slide-desc">A chilling exploration of isolation and depth.</p>
+              <a href="oo1.html" class="gallery-slide-link">Listen</a>
+            </div>
+
+            <!-- Slide 1 -->
+            <div id="slide-info-1" class="gallery-slide-info">
+              <span class="gallery-slide-number">02 / Single</span>
+              <h3 class="gallery-slide-title">OO2 - Desire</h3>
+              <p class="gallery-slide-desc">The burning rhythmic pulse of longing.</p>
+              <a href="oo2.html" class="gallery-slide-link">Listen</a>
+            </div>
+
+            <!-- Slide 2 -->
+            <div id="slide-info-2" class="gallery-slide-info">
+              <span class="gallery-slide-number">03 / Single</span>
+              <h3 class="gallery-slide-title">Your Arms</h3>
+              <p class="gallery-slide-desc">Embrace the warmth of the unknown.</p>
+              <a href="your_arms.html" class="gallery-slide-link">Listen</a>
+            </div>
+
+            <!-- Slide 3 -->
+            <div id="slide-info-3" class="gallery-slide-info">
+              <span class="gallery-slide-number">04 / Single</span>
+              <h3 class="gallery-slide-title">HER ECHO</h3>
+              <p class="gallery-slide-desc">Reverberations of a memory fading into void.</p>
+              <a href="her_echo.html" class="gallery-slide-link">Listen</a>
+            </div>
+          </div>
+
+          <div class="scroll-hint"
+            style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #666; font-size: 1rem; letter-spacing: 2px;">
+            SCROLL TO EXPLORE
           </div>
         </div>
       </div>
-
-      <!-- Sección Singles -->
-      <div class="section">
-        <h2 class="section-title">Singles</h2>
-        <div class="singles-grid">
-
-          <!-- Single 1 -->
-           <a href="oo1.html">
-              <div class="single-item">
-                <img src="images/oo1.jpeg" alt="Single 1" class="single-img">
-                <div class="single-overlay">
-                  <h3 class="single-title">OO1 - Cold</h3>
-                </div>
-              </div>
-           </a>
-          
-          <!-- Single 2 -->
-           <a href="oo2.html">
-              <div class="single-item">
-                <img src="images/oo2.jpeg" alt="Single 2" class="single-img">
-                <div class="single-overlay">
-                  <h3 class="single-title">OO2 - Desire</h3>
-                </div>
-              </div>
-           </a>
-          
-          <!-- Single 3 -->
-           <a href="your_arms.html">
-              <div class="single-item">
-                <img src="images/your_arms.jpg" alt="Single 2" class="single-img">
-                <div class="single-overlay">
-                  <h3 class="single-title">Your Arms</h3>
-                </div>
-              </div>
-           </a>
-          
-          <!-- Single 4 -->
-           <a href="her_echo.html">
-            <div class="single-item">
-              <img src="images/her_echo.jpeg" alt="Single 4" class="single-img">
-              <div class="single-overlay">
-                <h3 class="single-title">HER ECHO</h3>
-              </div>
-            </div>
-           </a>
-
-        </div>
-      </div>
     </div>
+  </div>
 
-<!-- Footer -->
-    <div class="footer">
-      <p style="font-size: 1.2rem;">© 2025 Bolaños</p>
-      <div class="social-links">
-          <a href="https://open.spotify.com/artist/0OT6XhLkPQ2GwlfEiTrIxl" class="social-link" target="_blank"><i class="fab fa-spotify"></i></a>
-          <a href="https://www.instagram.com/andre_bol_?igsh=YWx6OThoZHoxbno%3D" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://soundcloud.com/user-755738422-320803712/tracks" class="social-link" target="_blank"><i class="fab fa-soundcloud"></i></a>
-          <a href="https://www.youtube.com/@bola%C3%B1os04" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
-          <a href="https://music.apple.com/mx/artist/bola%C3%B1os/1711481716" class="social-link" target="_blank"><i class="fab fa-apple"></i></a>
-      </div>
+  <script type="module">
+    import { initGallery } from './js/gallery-scroll.js';
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGallery);
+    } else {
+      initGallery();
+    }
+  </script>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p style="font-size: 1.2rem;">© 2026 Bolaños</p>
+    <div class="social-links">
+      <a href="https://open.spotify.com/artist/0OT6XhLkPQ2GwlfEiTrIxl" class="social-link" target="_blank"><i
+          class="fab fa-spotify"></i></a>
+      <a href="https://www.instagram.com/andre_bol_?igsh=YWx6OThoZHoxbno%3D" class="social-link" target="_blank"><i
+          class="fab fa-instagram"></i></a>
+      <a href="https://soundcloud.com/user-755738422-320803712/tracks" class="social-link" target="_blank"><i
+          class="fab fa-soundcloud"></i></a>
+      <a href="https://www.youtube.com/@bola%C3%B1os04" class="social-link" target="_blank"><i
+          class="fab fa-youtube"></i></a>
+      <a href="https://music.apple.com/mx/artist/bola%C3%B1os/1711481716" class="social-link" target="_blank"><i
+          class="fab fa-apple"></i></a>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>

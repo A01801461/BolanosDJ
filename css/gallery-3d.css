@@ -1,0 +1,122 @@
+/* 3D Gallery Styles */
+.gallery-scroll-track {
+    position: relative;
+    height: 400vh;
+    /* Adjust length of scroll experience */
+    width: 100%;
+    background-color: #000000;
+    /* Match main background */
+    z-index: 10;
+}
+
+.gallery-sticky-view {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#gallery-3d-root {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Overlay UI for Single Info */
+.gallery-overlay-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Let clicks pass through to 3D canvas */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10%;
+    box-sizing: border-box;
+}
+
+.gallery-slide-info {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    position: absolute;
+    /* Stack them */
+    max-width: 400px;
+}
+
+.gallery-slide-info.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-slide-number {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #6a95f1;
+    /* Accent color */
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.gallery-slide-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    color: #fff;
+    margin: 0 0 1rem 0;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.gallery-slide-desc {
+    font-size: 1rem;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.gallery-slide-link {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #6a95f1;
+    color: #6a95f1;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    pointer-events: auto;
+    /* Enable clicking */
+    transition: all 0.3s ease;
+}
+
+.gallery-slide-link:hover {
+    background: #6a95f1;
+    color: #000;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .gallery-slide-title {
+        font-size: 2.5rem;
+    }
+
+    .gallery-overlay-ui {
+        padding-left: 5%;
+        padding-right: 5%;
+        align-items: center;
+        /* Center on mobile */
+        text-align: center;
+    }
+
+    .gallery-slide-info {
+        position: relative;
+        /* Stack normally if needed, or keep absolute */
+        width: 100%;
+    }
+}
